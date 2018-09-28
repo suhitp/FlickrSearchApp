@@ -6,4 +6,14 @@
 //  Copyright © 2018 Suhit Patil. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput {
+    
+    var presenter: FlickrSearchPresentation!
+
+    override func loadView() {
+        view = UIView()
+        view.backgroundColor = .white
+    }
+}

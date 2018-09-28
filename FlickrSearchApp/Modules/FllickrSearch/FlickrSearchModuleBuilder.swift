@@ -6,4 +6,26 @@
 //  Copyright © 2018 Suhit Patil. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+protocol ModuleBuilder: AnyObject {
+    func buildModule() -> FlickrSearchViewController
+}
+
+
+final class FlickrSearchModuleBuilder: ModuleBuilder {
+    
+    func buildModule() -> FlickrSearchViewController {
+        let flickrViewController = FlickrSearchViewController()
+        let presenter = FlickrSearchPresenter()
+        let interactor = FlickrSearchIneractor()
+        
+        presenter.view = flickrViewController
+        presenter.interactor = interactor
+        interactor.presenter = presenter
+        flickrViewController.presenter = presenter
+        
+        return flickrViewController
+    }
+}

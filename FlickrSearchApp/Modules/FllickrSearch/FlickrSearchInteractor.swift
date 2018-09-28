@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+
+final class FlickrSearchIneractor: FlickrSearchInteractorInput {
+    weak var presenter: FlickrSearchPresenterInput!
+}

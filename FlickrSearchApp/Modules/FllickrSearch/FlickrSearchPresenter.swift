@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+
+final class FlickrSearchPresenter: FlickrSearchModuleInput, FlickrSearchPresenterInput, FlickrSearchPresentation {
+    
+    weak var view: FlickrSearchViewInput?
+    var interactor: FlickrSearchInteractorInput!
+}
