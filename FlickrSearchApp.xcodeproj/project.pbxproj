@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		56290FAD215E62F300FB34C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FAC215E62F300FB34C6 /* AppDelegate.swift */; };
-		56290FAF215E62F300FB34C6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FAE215E62F300FB34C6 /* ViewController.swift */; };
-		56290FB2215E62F300FB34C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56290FB0215E62F300FB34C6 /* Main.storyboard */; };
 		56290FB4215E62F600FB34C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56290FB3215E62F600FB34C6 /* Assets.xcassets */; };
 		56290FB7215E62F600FB34C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56290FB5215E62F600FB34C6 /* LaunchScreen.storyboard */; };
 		56290FC2215E62F600FB34C6 /* FlickrSearchAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FC1215E62F600FB34C6 /* FlickrSearchAppTests.swift */; };
@@ -36,8 +34,6 @@
 /* Begin PBXFileReference section */
 		56290FA9215E62F300FB34C6 /* FlickrSearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrSearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56290FAC215E62F300FB34C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		56290FAE215E62F300FB34C6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		56290FB1215E62F300FB34C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		56290FB3215E62F600FB34C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56290FB6215E62F600FB34C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56290FB8215E62F600FB34C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,8 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				56290FAC215E62F300FB34C6 /* AppDelegate.swift */,
-				56290FAE215E62F300FB34C6 /* ViewController.swift */,
-				56290FB0215E62F300FB34C6 /* Main.storyboard */,
 				56290FB3215E62F600FB34C6 /* Assets.xcassets */,
 				56290FB5215E62F600FB34C6 /* LaunchScreen.storyboard */,
 				56290FB8215E62F600FB34C6 /* Info.plist */,
@@ -231,7 +225,6 @@
 			files = (
 				56290FB7215E62F600FB34C6 /* LaunchScreen.storyboard in Resources */,
 				56290FB4215E62F600FB34C6 /* Assets.xcassets in Resources */,
-				56290FB2215E62F300FB34C6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +249,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56290FAF215E62F300FB34C6 /* ViewController.swift in Sources */,
 				56290FAD215E62F300FB34C6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,14 +285,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		56290FB0215E62F300FB34C6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				56290FB1215E62F300FB34C6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		56290FB5215E62F600FB34C6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -435,6 +419,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MHFE84M79V;
 				INFOPLIST_FILE = FlickrSearchApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -453,6 +438,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MHFE84M79V;
 				INFOPLIST_FILE = FlickrSearchApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
