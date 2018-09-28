@@ -12,6 +12,11 @@
 		56290FB7215E62F600FB34C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56290FB5215E62F600FB34C6 /* LaunchScreen.storyboard */; };
 		56290FC2215E62F600FB34C6 /* FlickrSearchAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FC1215E62F600FB34C6 /* FlickrSearchAppTests.swift */; };
 		56290FCD215E62F600FB34C6 /* FlickrSearchAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FCC215E62F600FB34C6 /* FlickrSearchAppUITests.swift */; };
+		56290FE3215E6B2800FB34C6 /* FlickrSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FE2215E6B2800FB34C6 /* FlickrSearchViewController.swift */; };
+		56290FE5215E6B3D00FB34C6 /* FlickrSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FE4215E6B3D00FB34C6 /* FlickrSearchPresenter.swift */; };
+		56290FE7215E6B5100FB34C6 /* FlickrSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FE6215E6B5100FB34C6 /* FlickrSearchInteractor.swift */; };
+		56290FE9215E6B6100FB34C6 /* FlickrSearchProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FE8215E6B6100FB34C6 /* FlickrSearchProtocols.swift */; };
+		56290FEB215E6B7D00FB34C6 /* FlickrSearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56290FEA215E6B7D00FB34C6 /* FlickrSearchModuleBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +48,11 @@
 		56290FC8215E62F600FB34C6 /* FlickrSearchAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickrSearchAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56290FCC215E62F600FB34C6 /* FlickrSearchAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchAppUITests.swift; sourceTree = "<group>"; };
 		56290FCE215E62F600FB34C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		56290FE2215E6B2800FB34C6 /* FlickrSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchViewController.swift; sourceTree = "<group>"; };
+		56290FE4215E6B3D00FB34C6 /* FlickrSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchPresenter.swift; sourceTree = "<group>"; };
+		56290FE6215E6B5100FB34C6 /* FlickrSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchInteractor.swift; sourceTree = "<group>"; };
+		56290FE8215E6B6100FB34C6 /* FlickrSearchProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchProtocols.swift; sourceTree = "<group>"; };
+		56290FEA215E6B7D00FB34C6 /* FlickrSearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchModuleBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +181,11 @@
 		56290FE0215E695800FB34C6 /* FllickrSearch */ = {
 			isa = PBXGroup;
 			children = (
+				56290FE2215E6B2800FB34C6 /* FlickrSearchViewController.swift */,
+				56290FE4215E6B3D00FB34C6 /* FlickrSearchPresenter.swift */,
+				56290FE6215E6B5100FB34C6 /* FlickrSearchInteractor.swift */,
+				56290FE8215E6B6100FB34C6 /* FlickrSearchProtocols.swift */,
+				56290FEA215E6B7D00FB34C6 /* FlickrSearchModuleBuilder.swift */,
 			);
 			path = FllickrSearch;
 			sourceTree = "<group>";
@@ -305,7 +320,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56290FEB215E6B7D00FB34C6 /* FlickrSearchModuleBuilder.swift in Sources */,
+				56290FE9215E6B6100FB34C6 /* FlickrSearchProtocols.swift in Sources */,
+				56290FE3215E6B2800FB34C6 /* FlickrSearchViewController.swift in Sources */,
 				56290FAD215E62F300FB34C6 /* AppDelegate.swift in Sources */,
+				56290FE5215E6B3D00FB34C6 /* FlickrSearchPresenter.swift in Sources */,
+				56290FE7215E6B5100FB34C6 /* FlickrSearchInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
