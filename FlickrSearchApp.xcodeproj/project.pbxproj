@@ -93,10 +93,12 @@
 		56290FAB215E62F300FB34C6 /* FlickrSearchApp */ = {
 			isa = PBXGroup;
 			children = (
-				56290FAC215E62F300FB34C6 /* AppDelegate.swift */,
-				56290FB3215E62F600FB34C6 /* Assets.xcassets */,
-				56290FB5215E62F600FB34C6 /* LaunchScreen.storyboard */,
-				56290FB8215E62F600FB34C6 /* Info.plist */,
+				56290FDA215E68F600FB34C6 /* Application */,
+				56290FDC215E690600FB34C6 /* Modules */,
+				56290FDB215E68FD00FB34C6 /* Networking */,
+				56290FDE215E691800FB34C6 /* Constants */,
+				56290FDD215E690F00FB34C6 /* Extensions */,
+				56290FDF215E692100FB34C6 /* Resources */,
 			);
 			path = FlickrSearchApp;
 			sourceTree = "<group>";
@@ -117,6 +119,60 @@
 				56290FCE215E62F600FB34C6 /* Info.plist */,
 			);
 			path = FlickrSearchAppUITests;
+			sourceTree = "<group>";
+		};
+		56290FDA215E68F600FB34C6 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				56290FAC215E62F300FB34C6 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		56290FDB215E68FD00FB34C6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		56290FDC215E690600FB34C6 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				56290FE0215E695800FB34C6 /* FllickrSearch */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		56290FDD215E690F00FB34C6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		56290FDE215E691800FB34C6 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		56290FDF215E692100FB34C6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				56290FB3215E62F600FB34C6 /* Assets.xcassets */,
+				56290FB5215E62F600FB34C6 /* LaunchScreen.storyboard */,
+				56290FB8215E62F600FB34C6 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		56290FE0215E695800FB34C6 /* FllickrSearch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FllickrSearch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,7 +474,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MHFE84M79V;
-				INFOPLIST_FILE = FlickrSearchApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FlickrSearchAppUITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -437,7 +493,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MHFE84M79V;
-				INFOPLIST_FILE = FlickrSearchApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FlickrSearchAppUITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
