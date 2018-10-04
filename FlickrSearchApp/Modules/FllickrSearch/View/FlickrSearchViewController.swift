@@ -14,9 +14,8 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
 
     lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        let numberOfColumns: CGFloat = 3
-        let spacing: CGFloat = 1
-        let itemSize: CGFloat = (UIScreen.main.bounds.width - (numberOfColumns - spacing) - 2) / numberOfColumns
+        let spacing = Constants.defaultSpacing
+        let itemSize: CGFloat = (UIScreen.main.bounds.width - (Constants.numberOfColumns - spacing) - 2) / Constants.numberOfColumns
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         layout.minimumInteritemSpacing = spacing
         layout.minimumLineSpacing = spacing
@@ -41,11 +40,10 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
             controller.dimsBackgroundDuringPresentation = false
         }
         controller.searchResultsUpdater = nil
-        controller.searchBar.placeholder = "Search for your favourite images"
+        controller.searchBar.placeholder = Strings.placeholder
         controller.searchBar.enablesReturnKeyAutomatically = false
         controller.searchBar.tintColor = .black
         controller.searchBar.barStyle = .default
-        definesPresentationContext = true
         controller.searchBar.delegate = nil
         return controller
     }()
@@ -53,7 +51,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
-        navigationItem.title = "Flickr Search"
+        navigationItem.title = Strings.searchPageTitle
     }
 
     override func viewDidLoad() {
@@ -80,7 +78,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.edgesToSuperView()
-        collectionView.register(FlickrImageCell.self, forCellWithReuseIdentifier: FlickrImageCell.reuseIdentifier)
+        collectionView.register(FlickrImageCell.self, forCellWithReuseIdentifier: Strings.reuseIdentifier)
     }
 }
 
@@ -93,7 +91,7 @@ extension FlickrSearchViewController: UICollectionViewDataSource, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlickrImageCell.reuseIdentifier, for: indexPath) as! FlickrImageCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Strings.reuseIdentifier, for: indexPath) as! FlickrImageCell
         return cell
     }
 }

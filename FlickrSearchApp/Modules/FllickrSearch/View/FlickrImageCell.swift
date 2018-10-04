@@ -10,8 +10,6 @@ import UIKit
 
 final class FlickrImageCell: UICollectionViewCell {
     
-    static let reuseIdentifier: String = "FlickrImageCell"
-    
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -34,5 +32,10 @@ final class FlickrImageCell: UICollectionViewCell {
         contentView.backgroundColor = .black
         contentView.addSubview(imageView)
         imageView.edges(to: contentView)
+    }
+    
+    override func prepareForReuse() {
+        imageView.image = nil
+        super.prepareForReuse()
     }
 }

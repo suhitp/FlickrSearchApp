@@ -19,13 +19,15 @@ protocol FlickrSearchModuleInput: AnyObject {
 }
 
 protocol FlickrSearchPresenterInput: AnyObject  {
-    
+    func flickrSearchSuccess(_ flickrPhotos: FlickrPhotos)
+    func flickrSearchError(_ error: NetworkError)
 }
 
 protocol FlickrSearchPresentation: AnyObject {
-    
+    func searchFlickrPhotos(matching imageName: String)
 }
 
 protocol FlickrSearchInteractorInput: AnyObject {
-    var presenter: FlickrSearchPresenterInput! { get set }
+    var presenter: FlickrSearchPresenterInput? { get set }
+    func loadFlickrPhotos(matching imageName: String, pageNum: Int)
 }

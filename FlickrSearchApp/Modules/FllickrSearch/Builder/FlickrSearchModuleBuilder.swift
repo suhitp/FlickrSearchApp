@@ -19,7 +19,8 @@ final class FlickrSearchModuleBuilder: ModuleBuilder {
     func buildModule() -> FlickrSearchViewController {
         let flickrViewController = FlickrSearchViewController()
         let presenter = FlickrSearchPresenter()
-        let interactor = FlickrSearchIneractor()
+        let network = NetworkAPIClient()
+        let interactor = FlickrSearchIneractor(network: network)
         
         presenter.view = flickrViewController
         presenter.interactor = interactor
