@@ -15,27 +15,29 @@ final class FlickrSearchPresenter: FlickrSearchModuleInput, FlickrSearchPresente
     var interactor: FlickrSearchInteractorInput!
     var pageNum = Constants.defaultPageNum
     var totalCount: Int = Constants.defaultTotalCount
-    var flickrSearchViewModel: FlickrSearchViewModel?
+    var flickrSearchViewModel: FlickrSearchViewModel!
     
     func searchFlickrPhotos(matching imageName: String) {
-        self.interactor.loadFlickrPhotos(matching: imageName, pageNum: pageNum)
+        view?.changeViewState(.loading)
+        interactor.loadFlickrPhotos(matching: imageName, pageNum: pageNum)
     }
     
     func flickrSearchSuccess(_ flickrPhotos: FlickrPhotos) {
         let flickrPhotoUrlList = buildFlickrPhotoUrlList(from: flickrPhotos.photo)
-        print(flickrPhotoUrlList)
-//        if totalCount == Constants.defaultTotalCount {
-//            flickrSearchViewModel = FlickrSearchViewModel(photoUrlList: flickrPhotoUrlList)
-//            totalCount = flickrPhotos.photos.count
-//        } else {
-//            flickrSearchViewModel?.flickrPhotoUrlList += flickrPhotoUrlList
-//            totalCount += flickrPhotos.photos.count
-//        }
+        if totalCount == Constants.defaultTotalCount {
+            flickrSearchViewModel = FlickrSearchViewModel(photoUrlList: flickrPhotoUrlList)
+            totalCount = flickrPhotos.photo.count
+            view?.displayFlickrSearchImages(with: flickrSearchViewModel)
+        } else {
+            totalCount += flickrPhotos.photo.count
+            flickrSearchViewModel.photoUrlList += flickrPhotoUrlList
+            view?.updateFlickrSearchImages(with: flickrSearchViewModel)
+        }
+        view?.changeViewState(.content)
     }
     
     func flickrSearchError(_ error: NetworkError) {
-        print(error.description)
-        print(error.localizedDescription)
+        view?.changeViewState(.error(error.description))
     }
     
     //MARK: FlickrImageURLList

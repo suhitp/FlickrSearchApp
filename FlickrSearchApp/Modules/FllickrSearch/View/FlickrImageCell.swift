@@ -12,8 +12,9 @@ final class FlickrImageCell: UICollectionViewCell {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -37,5 +38,24 @@ final class FlickrImageCell: UICollectionViewCell {
     override func prepareForReuse() {
         imageView.image = nil
         super.prepareForReuse()
+    }
+    
+    func configure(imageURL: URL) {
+        imageView.load(url: imageURL)
+    }
+}
+
+
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
     }
 }

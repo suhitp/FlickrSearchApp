@@ -11,6 +11,9 @@ import Foundation
 
 protocol FlickrSearchViewInput: AnyObject {
     var presenter: FlickrSearchPresentation! { get set }
+    func changeViewState(_ state: ViewState)
+    func displayFlickrSearchImages(with viewModel: FlickrSearchViewModel)
+    func updateFlickrSearchImages(with viewModel: FlickrSearchViewModel)
 }
 
 protocol FlickrSearchModuleInput: AnyObject {

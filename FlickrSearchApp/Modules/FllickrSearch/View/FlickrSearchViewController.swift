@@ -8,9 +8,20 @@
 
 import UIKit
 
-final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput {
+//MARK: ViewState
+public enum ViewState: Equatable {
+    case none
+    case loading
+    case error(String)
+    case content
+}
 
+final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput {
+    
     var presenter: FlickrSearchPresentation!
+    var viewState: ViewState = .none
+    var searchText = ""
+    var flickrSearchViewModel: FlickrSearchViewModel?
 
     lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -25,7 +36,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .lightGray
+        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +68,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        presenter.searchFlickrPhotos(matching: "nature")
     }
 
     private func setupViews() {
@@ -80,6 +92,40 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
         collectionView.edgesToSuperView()
         collectionView.register(FlickrImageCell.self, forCellWithReuseIdentifier: Strings.reuseIdentifier)
     }
+    
+    func changeViewState(_ state: ViewState) {
+        DispatchQueue.main.async { [unowned self] in
+            self.viewState = state
+            switch state {
+            case .loading:
+                self.view.showSpinner()
+            case .content:
+                self.view.hideSpinner()
+            case .error(let message):
+                self.view.hideSpinner()
+                self.showAlert(title: Strings.error, message: message, retryAction: { [unowned self] in
+                    self.presenter.searchFlickrPhotos(matching: self.searchText)
+                    }
+                )
+            default:
+                break
+            }
+        }
+    }
+    
+    func displayFlickrSearchImages(with viewModel: FlickrSearchViewModel) {
+        DispatchQueue.main.async {
+            self.flickrSearchViewModel = viewModel
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func updateFlickrSearchImages(with viewModel: FlickrSearchViewModel) {
+        DispatchQueue.main.async {
+            self.flickrSearchViewModel = viewModel
+            self.collectionView.reloadData()
+        }
+    }
 }
 
 
@@ -87,11 +133,17 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput 
 extension FlickrSearchViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 50
+        guard let viewModel = self.flickrSearchViewModel else {
+            return 0
+        }
+        return viewModel.photoUrlList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Strings.reuseIdentifier, for: indexPath) as! FlickrImageCell
+        guard let viewModel = flickrSearchViewModel else { return cell }
+        let imageURL = viewModel.photoUrlList[indexPath.row]
+        cell.configure(imageURL: imageURL)
         return cell
     }
 }

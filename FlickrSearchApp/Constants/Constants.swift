@@ -14,6 +14,10 @@ enum Strings {
     static let searchPageTitle = "Flickr Search"
     static let reuseIdentifier = "FlickrImageCell"
     static let placeholder = "Search Flickr images..."
+    static let cancel = "Cancel"
+    static let ok = "Ok"
+    static let retry = "Retry"
+    static let error = "Error"
     
     static let flickrAPIBaseURL = "https://api.flickr.com"
     static let flickrAPIKey = "3e7cc266ae2b0e0d78e279ce8e361736" //"f9890551af4b01eccd3dbfdcef155170"

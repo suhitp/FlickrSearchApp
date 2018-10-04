@@ -9,10 +9,10 @@
 import Foundation
 
 struct FlickrSearchViewModel {
-    var flickrPhotoUrlList: [URL] = []
+    var photoUrlList: [URL] = []
 
     init(photoUrlList: [URL]) {
-        self.flickrPhotoUrlList = photoUrlList
+        self.photoUrlList = photoUrlList
     }
 }
 
