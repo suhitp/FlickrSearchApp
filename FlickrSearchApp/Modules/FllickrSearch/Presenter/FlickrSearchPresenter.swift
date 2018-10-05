@@ -43,7 +43,9 @@ final class FlickrSearchPresenter: FlickrSearchModuleInput, FlickrSearchPresente
         } else {
             let previousCount = totalCount
             totalCount += flickrPhotos.photo.count
-            let indexPaths: [IndexPath] = (previousCount..<totalCount).map(IndexPath.init)
+            let indexPaths: [IndexPath] = (previousCount..<totalCount).map {
+                return IndexPath(item: $0, section: 0)
+            }
             flickrSearchViewModel.photoUrlList += flickrPhotoUrlList
             view?.insertFlickrSearchImages(with: flickrSearchViewModel, at: indexPaths)
         }
