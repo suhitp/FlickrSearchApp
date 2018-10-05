@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum Result<T> {
     case success(T)
@@ -14,13 +15,17 @@ enum Result<T> {
 }
 
 protocol NetworkService {
-    @discardableResult func dataRequest<T: Decodable>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask
+    @discardableResult
+    func dataRequest<T: Decodable>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask
+    
+    @discardableResult
+    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage>) -> Void) -> URLSessionDownloadTask
 }
 
 final class NetworkAPIClient: NetworkService {
-    
+
     let session: URLSession
-    
+
     static var defaultSession: URLSession = {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 20
@@ -29,14 +34,14 @@ final class NetworkAPIClient: NetworkService {
         }
         return URLSession(configuration: configuration)
     }()
-    
+
     init(session: URLSession = NetworkAPIClient.defaultSession) {
         self.session = session
     }
-    
+
     @discardableResult
     func dataRequest<T: Decodable>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask {
-        
+
         var request: URLRequest
         do {
             request = try endPoint.asURLRequest()
@@ -44,7 +49,7 @@ final class NetworkAPIClient: NetworkService {
             completion(.failure(error as! NetworkError))
             return URLSessionDataTask()
         }
-        
+
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             if let error = error as NSError?, error.domain == NSURLErrorDomain {
                 completion(Result.failure(NetworkError.apiError(error)))
@@ -69,11 +74,48 @@ final class NetworkAPIClient: NetworkService {
         dataTask.resume()
         return dataTask
     }
-    
+
     func printJSON(data: Data) {
         let json = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: Any]
         let jsonData = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
         let string = String.init(data: jsonData, encoding: .utf8)
         print(string ?? "")
+    }
+
+    @discardableResult
+    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage>) -> Void) -> URLSessionDownloadTask {
+        let downloadTask = self.session.downloadTask(with: url) { (location: URL?, response: URLResponse?, error: Error?) in
+            
+            if let error = error {
+                completion(.failure(.apiError(error)))
+                return
+            }
+            
+            guard let location = location else {
+                completion(Result.failure(.somethingWentWrong))
+                return
+            }
+            
+            let downloadedImage = self.downsample(imageAt: location, to: size, scale: scale)
+            completion(.success(downloadedImage))
+        }
+        return downloadTask
+    }
+
+    func downsample(imageAt imageURL: URL, to pointSize: CGSize, scale: CGFloat) -> UIImage {
+        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions)!
+
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        let downsampleOptions =
+                [kCGImageSourceCreateThumbnailFromImageAlways: true,
+                 kCGImageSourceShouldCacheImmediately: true,
+                 kCGImageSourceCreateThumbnailWithTransform: true,
+                 kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels] as CFDictionary
+
+        let downSampledImage =
+                CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions)!
+        let image = UIImage(cgImage: downSampledImage)
+        return image
     }
 }
