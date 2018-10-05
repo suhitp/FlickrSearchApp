@@ -143,7 +143,7 @@ extension FlickrSearchViewController: UICollectionViewDataSource, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Strings.reuseIdentifier, for: indexPath) as! FlickrImageCell
         guard let viewModel = flickrSearchViewModel else { return cell }
         let imageURL = viewModel.photoUrlList[indexPath.row]
-        cell.configure(imageURL: imageURL)
+        cell.configure(imageURL: imageURL, size: collectionViewLayout.itemSize)
         return cell
     }
 }

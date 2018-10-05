@@ -40,22 +40,21 @@ final class FlickrImageCell: UICollectionViewCell {
         super.prepareForReuse()
     }
     
-    func configure(imageURL: URL) {
-        imageView.load(url: imageURL)
-    }
-}
-
-
-extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
+    func configure(imageURL: URL, size: CGSize) {
+        imageView.image = nil
+        ImageDownloader.shared.downloadImage(withURL: imageURL, size: size, completion: { image in
+            DispatchQueue.main.async {
+                if let downloadedImage = image {
+                    UIView.animate(
+                        withDuration: 0.25,
+                        delay: 0,
+                        options: .transitionCrossDissolve,
+                        animations: {
+                            self.imageView.image = downloadedImage
+                        }
+                    )
                 }
             }
-        }
+        })
     }
 }
