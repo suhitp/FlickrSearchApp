@@ -9,7 +9,16 @@
 import Foundation
 
 struct FlickrSearchViewModel {
+    
     var photoUrlList: [URL] = []
+    
+    var isEmpty: Bool {
+        return photoUrlList.isEmpty
+    }
+    
+    var photoCount: Int {
+        return photoUrlList.count
+    }
 
     init(photoUrlList: [URL]) {
         self.photoUrlList = photoUrlList

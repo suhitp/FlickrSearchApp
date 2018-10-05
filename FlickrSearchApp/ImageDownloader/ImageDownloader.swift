@@ -24,26 +24,26 @@ final class ImageDownloader {
     static let shared = ImageDownloader()
     private init() {}
     
-    func downloadImage(withURL imageURL: URL, size: CGSize, scale: CGFloat = UIScreen.main.scale, completion: @escaping (UIImage?) -> Void) {
+    func downloadImage(withURL imageURL: URL, size: CGSize, scale: CGFloat = UIScreen.main.scale, indexPath: IndexPath, completion: @escaping (UIImage?, IndexPath) -> Void) {
         
         if let cachedImage = imageCache.object(forKey: imageURL.absoluteString as NSString) {
-            completion(cachedImage)
+            completion(cachedImage, indexPath)
             return
         } else {
-            let imageOperation = ImageOperation(imageURL: imageURL, size: size, scale: scale)
-            if let operation = downloadQueue.operations.first(where: { (operation: Operation) -> Bool in
-                    return (operation == imageOperation) && operation.isExecuting
-                }) as? ImageOperation {
-                 operation.queuePriority = .veryHigh
+            if let existingImageOperations = (downloadQueue.operations as? [ImageOperation])?.first(where: { (operation: ImageOperation) in
+                return (operation.imageURL == imageURL) && operation.isExecuting
+            }) {
+                existingImageOperations.queuePriority = .veryHigh
             } else {
+                let imageOperation = ImageOperation(imageURL: imageURL, size: size, scale: scale)
                 imageOperation.imageDownloadCompletionHandler = { result in
                     switch result {
                     case let .success(image):
                         self.imageCache.setObject(image, forKey: imageURL.absoluteString as NSString)
-                        completion(image)
+                        completion(image, indexPath)
                     case let .failure(error):
                         print(error.description)
-                        completion(nil)
+                        completion(nil, indexPath)
                     }
                 }
                 imageOperation.queuePriority = .high

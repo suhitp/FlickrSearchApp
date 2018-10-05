@@ -91,6 +91,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         view.addSubview(collectionView)
         collectionView.edgesToSuperView()
         collectionView.register(FlickrImageCell.self, forCellWithReuseIdentifier: Strings.reuseIdentifier)
+        collectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.reuseIdentifer)
     }
     
     func changeViewState(_ state: ViewState) {
@@ -98,7 +99,9 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
             self.viewState = state
             switch state {
             case .loading:
-                self.view.showSpinner()
+                if self.flickrSearchViewModel == nil {
+                    self.view.showSpinner()
+                }
             case .content:
                 self.view.hideSpinner()
             case .error(let message):
@@ -149,23 +152,23 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
 extension FlickrSearchViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let viewModel = self.flickrSearchViewModel else {
+        guard let viewModel = self.flickrSearchViewModel, !viewModel.isEmpty else {
             return 0
         }
-        return viewModel.photoUrlList.count
+        return viewModel.photoCount
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Strings.reuseIdentifier, for: indexPath) as! FlickrImageCell
         guard let viewModel = flickrSearchViewModel else { return cell }
         let imageURL = viewModel.photoUrlList[indexPath.row]
-        cell.configure(imageURL: imageURL, size: collectionViewLayout.itemSize)
+        cell.configure(imageURL: imageURL, size: collectionViewLayout.itemSize, indexPath: indexPath)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let viewModel = flickrSearchViewModel else { return }
-        guard viewState == .content, viewModel.photoUrlList.count == (indexPath.row - 1), presenter.isMoreDataAvailable else {
+        guard viewState != .loading, indexPath.row == (viewModel.photoCount - 1) else {
             return
         }
         presenter.searchFlickrPhotos(matching: searchText)

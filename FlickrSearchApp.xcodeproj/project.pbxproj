@@ -34,6 +34,7 @@
 		564E180C2165E30A000DD4F4 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E180B2165E30A000DD4F4 /* ImageDownloader.swift */; };
 		564E180E21674C23000DD4F4 /* ImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E180D21674C23000DD4F4 /* ImageOperation.swift */; };
 		564E18102167818B000DD4F4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E180F2167818B000DD4F4 /* SearchViewController.swift */; };
+		564E1812216796C8000DD4F4 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E1811216796C8000DD4F4 /* UIImage+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		564E180B2165E30A000DD4F4 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		564E180D21674C23000DD4F4 /* ImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOperation.swift; sourceTree = "<group>"; };
 		564E180F2167818B000DD4F4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		564E1811216796C8000DD4F4 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			children = (
 				564BD7702163AE07004DCFF1 /* UIView+Extensions.swift */,
 				564E18082165AE0C000DD4F4 /* UIViewController+Extensions.swift */,
+				564E1811216796C8000DD4F4 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				564E18092165AE0C000DD4F4 /* UIViewController+Extensions.swift in Sources */,
 				564E18102167818B000DD4F4 /* SearchViewController.swift in Sources */,
 				56290FED215E6F2600FB34C6 /* AppCoordinator.swift in Sources */,
+				564E1812216796C8000DD4F4 /* UIImage+Extensions.swift in Sources */,
 				564BD7772163CABA004DCFF1 /* NetworkError.swift in Sources */,
 				564BD78121646E66004DCFF1 /* FlickrPhoto.swift in Sources */,
 				564E180C2165E30A000DD4F4 /* ImageDownloader.swift in Sources */,

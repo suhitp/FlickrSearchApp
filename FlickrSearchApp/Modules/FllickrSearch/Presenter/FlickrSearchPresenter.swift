@@ -20,10 +20,14 @@ final class FlickrSearchPresenter: FlickrSearchModuleInput, FlickrSearchPresente
     var flickrSearchViewModel: FlickrSearchViewModel!
     
     var isMoreDataAvailable: Bool {
+        guard totalPages != 0 else {
+            return true
+        }
         return pageNum < totalPages
     }
     
     func searchFlickrPhotos(matching imageName: String) {
+        guard isMoreDataAvailable else { return }
         view?.changeViewState(.loading)
         pageNum += 1
         interactor.loadFlickrPhotos(matching: imageName, pageNum: pageNum)

@@ -12,7 +12,7 @@ final class ImageOperation: Operation {
     
     var imageDownloadCompletionHandler: ((Result<UIImage>) -> Void)?
     
-    private let imageURL: URL
+    public let imageURL: URL
     private let network: NetworkService
     private var downloadTask: URLSessionDownloadTask?
     private let size: CGSize
