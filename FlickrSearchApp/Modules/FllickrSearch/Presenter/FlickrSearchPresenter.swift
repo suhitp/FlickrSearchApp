@@ -13,12 +13,19 @@ final class FlickrSearchPresenter: FlickrSearchModuleInput, FlickrSearchPresente
     
     weak var view: FlickrSearchViewInput?
     var interactor: FlickrSearchInteractorInput!
+    
     var pageNum = Constants.defaultPageNum
     var totalCount: Int = Constants.defaultTotalCount
+    var totalPages: Int = Constants.defaultPageNum
     var flickrSearchViewModel: FlickrSearchViewModel!
+    
+    var isMoreDataAvailable: Bool {
+        return pageNum < totalPages
+    }
     
     func searchFlickrPhotos(matching imageName: String) {
         view?.changeViewState(.loading)
+        pageNum += 1
         interactor.loadFlickrPhotos(matching: imageName, pageNum: pageNum)
     }
     
@@ -27,11 +34,14 @@ final class FlickrSearchPresenter: FlickrSearchModuleInput, FlickrSearchPresente
         if totalCount == Constants.defaultTotalCount {
             flickrSearchViewModel = FlickrSearchViewModel(photoUrlList: flickrPhotoUrlList)
             totalCount = flickrPhotos.photo.count
+            totalPages = flickrPhotos.pages
             view?.displayFlickrSearchImages(with: flickrSearchViewModel)
         } else {
+            let previousCount = totalCount
             totalCount += flickrPhotos.photo.count
+            let indexPaths: [IndexPath] = (previousCount..<totalCount).map(IndexPath.init)
             flickrSearchViewModel.photoUrlList += flickrPhotoUrlList
-            view?.updateFlickrSearchImages(with: flickrSearchViewModel)
+            view?.insertFlickrSearchImages(with: flickrSearchViewModel, at: indexPaths)
         }
         view?.changeViewState(.content)
     }
@@ -50,5 +60,14 @@ final class FlickrSearchPresenter: FlickrSearchModuleInput, FlickrSearchPresente
             return imageUrl
         }
         return flickrPhotoUrlList
+    }
+    
+    func clearData() {
+        pageNum = Constants.defaultPageNum
+        totalCount = Constants.defaultTotalCount
+        totalPages = Constants.defaultTotalCount
+        flickrSearchViewModel = nil
+        view?.resetViews()
+        view?.changeViewState(.none)
     }
 }

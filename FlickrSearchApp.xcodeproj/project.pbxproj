@@ -33,6 +33,7 @@
 		564E18092165AE0C000DD4F4 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E18082165AE0C000DD4F4 /* UIViewController+Extensions.swift */; };
 		564E180C2165E30A000DD4F4 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E180B2165E30A000DD4F4 /* ImageDownloader.swift */; };
 		564E180E21674C23000DD4F4 /* ImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E180D21674C23000DD4F4 /* ImageOperation.swift */; };
+		564E18102167818B000DD4F4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E180F2167818B000DD4F4 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		564E18082165AE0C000DD4F4 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		564E180B2165E30A000DD4F4 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		564E180D21674C23000DD4F4 /* ImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOperation.swift; sourceTree = "<group>"; };
+		564E180F2167818B000DD4F4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 				56290FF0215E8EE300FB34C6 /* FlickrSearchDataSource.swift */,
 				56290FE2215E6B2800FB34C6 /* FlickrSearchViewController.swift */,
 				564BD76D2163A4A9004DCFF1 /* FlickrImageCell.swift */,
+				564E180F2167818B000DD4F4 /* SearchViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				56290FF1215E8EE300FB34C6 /* FlickrSearchDataSource.swift in Sources */,
 				56290FAD215E62F300FB34C6 /* AppDelegate.swift in Sources */,
 				564E18092165AE0C000DD4F4 /* UIViewController+Extensions.swift in Sources */,
+				564E18102167818B000DD4F4 /* SearchViewController.swift in Sources */,
 				56290FED215E6F2600FB34C6 /* AppCoordinator.swift in Sources */,
 				564BD7772163CABA004DCFF1 /* NetworkError.swift in Sources */,
 				564BD78121646E66004DCFF1 /* FlickrPhoto.swift in Sources */,

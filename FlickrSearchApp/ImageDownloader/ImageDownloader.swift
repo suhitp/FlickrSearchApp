@@ -51,4 +51,8 @@ final class ImageDownloader {
             }
         }
     }
+    
+    func cancelAll() {
+        downloadQueue.cancelAllOperations()
+    }
 }

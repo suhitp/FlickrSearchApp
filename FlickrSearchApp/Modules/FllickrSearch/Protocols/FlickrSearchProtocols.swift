@@ -13,7 +13,8 @@ protocol FlickrSearchViewInput: AnyObject {
     var presenter: FlickrSearchPresentation! { get set }
     func changeViewState(_ state: ViewState)
     func displayFlickrSearchImages(with viewModel: FlickrSearchViewModel)
-    func updateFlickrSearchImages(with viewModel: FlickrSearchViewModel)
+    func insertFlickrSearchImages(with viewModel: FlickrSearchViewModel, at indexPaths: [IndexPath])
+    func resetViews()
 }
 
 protocol FlickrSearchModuleInput: AnyObject {
@@ -28,6 +29,8 @@ protocol FlickrSearchPresenterInput: AnyObject  {
 
 protocol FlickrSearchPresentation: AnyObject {
     func searchFlickrPhotos(matching imageName: String)
+    var isMoreDataAvailable: Bool { get }
+    func clearData()
 }
 
 protocol FlickrSearchInteractorInput: AnyObject {
