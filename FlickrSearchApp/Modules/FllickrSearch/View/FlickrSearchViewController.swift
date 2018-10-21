@@ -106,8 +106,11 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
                 self.view.hideSpinner()
             case .error(let message):
                 self.view.hideSpinner()
-                self.showAlert(title: Strings.error, message: message, retryAction: { [unowned self] in
-                    self.presenter.searchFlickrPhotos(matching: self.searchText)
+                self.showAlert(
+                    title: Strings.error,
+                    message: message,
+                    retryAction: { [unowned self] in
+                        self.presenter.searchFlickrPhotos(matching: self.searchText)
                     }
                 )
             default:
@@ -125,8 +128,10 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
     
     func insertFlickrSearchImages(with viewModel: FlickrSearchViewModel, at indexPaths: [IndexPath]) {
         DispatchQueue.main.async {
-            self.flickrSearchViewModel = viewModel
-            self.collectionView.reloadData()
+            self.collectionView.performBatchUpdates({
+                self.flickrSearchViewModel = viewModel
+                self.collectionView.insertItems(at: indexPaths)
+            }, completion: nil)
         }
     }
     

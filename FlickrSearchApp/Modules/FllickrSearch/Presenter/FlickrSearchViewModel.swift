@@ -23,5 +23,9 @@ struct FlickrSearchViewModel {
     init(photoUrlList: [URL]) {
         self.photoUrlList = photoUrlList
     }
+    
+    mutating func addMorePhotosUrls(_ photoUrls: [URL]) {
+        self.photoUrlList += photoUrls
+    }
 }
 
