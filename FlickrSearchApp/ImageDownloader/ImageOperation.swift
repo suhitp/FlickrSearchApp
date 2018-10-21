@@ -69,7 +69,7 @@ final class ImageOperation: Operation {
     // MARK: - Start
     
     override func start() {
-        guard !isCancelled else {
+        if isCancelled {
             finish()
             return
         }
@@ -99,9 +99,9 @@ final class ImageOperation: Operation {
     
     //MARK: - Main
     override func main() {
-        downloadTask = network.downloadRequest(imageURL, size: size, scale: scale, completion: { (result: Result<UIImage>) in
-            self.imageDownloadCompletionHandler?(result)
-            self.finish()
+        downloadTask = network.downloadRequest(imageURL, size: size, scale: scale, completion: { [weak self] (result: Result<UIImage>) in
+            self?.imageDownloadCompletionHandler?(result)
+            self?.finish()
         })
         downloadTask?.resume()
     }

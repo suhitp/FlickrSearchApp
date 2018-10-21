@@ -24,7 +24,7 @@ enum NetworkError: Swift.Error, CustomStringConvertible {
         case let .decodingError(decodingError):
             return "Json Decoding Error: \(decodingError.localizedDescription)"
         case .emptyData:
-            return "Empty repsonse from the server"
+            return "Empty response from the server"
         case let .invalidRequestURL(url):
             return "Invalid URL. Please check the endPoint: \(url.absoluteString)"
         case .somethingWentWrong:

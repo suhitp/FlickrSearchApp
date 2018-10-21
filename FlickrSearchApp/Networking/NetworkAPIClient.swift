@@ -85,37 +85,40 @@ final class NetworkAPIClient: NetworkService {
     @discardableResult
     func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage>) -> Void) -> URLSessionDownloadTask {
         let downloadTask = self.session.downloadTask(with: url) { (location: URL?, response: URLResponse?, error: Error?) in
-            
             if let error = error {
                 completion(.failure(.apiError(error)))
                 return
             }
-            
             guard let location = location else {
-                completion(Result.failure(.somethingWentWrong))
+                completion(Result.failure(.emptyData))
                 return
             }
-            
-            let downloadedImage = self.downsample(imageAt: location, to: size, scale: scale)
+            guard let downloadedImage = self.downsampleImage(from: location, pointSize: size, scale: scale) else {
+                let image = UIImage(contentsOfFile: location.absoluteString)!
+                completion(.success(image))
+                return
+            }
             completion(.success(downloadedImage))
         }
         return downloadTask
     }
-
-    func downsample(imageAt imageURL: URL, to pointSize: CGSize, scale: CGFloat) -> UIImage {
+    
+    func downsampleImage(from url: URL, pointSize: CGSize, scale: CGFloat) -> UIImage? {
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions)!
-
+        guard let imageSource = CGImageSourceCreateWithURL(url as CFURL, imageSourceOptions) else {
+            return nil
+        }
         let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
-        let downsampleOptions =
-                [kCGImageSourceCreateThumbnailFromImageAlways: true,
-                 kCGImageSourceShouldCacheImmediately: true,
-                 kCGImageSourceCreateThumbnailWithTransform: true,
-                 kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels] as CFDictionary
-
-        let downSampledImage =
-                CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions)!
-        let image = UIImage(cgImage: downSampledImage)
-        return image
+        let downsampleOptions = [
+             kCGImageSourceCreateThumbnailFromImageAlways: true,
+             kCGImageSourceShouldCacheImmediately: true,
+             kCGImageSourceCreateThumbnailWithTransform: true,
+             kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
+        ] as CFDictionary
+        
+        guard let downSampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
+            return nil
+        }
+        return UIImage(cgImage: downSampledImage)
     }
 }
