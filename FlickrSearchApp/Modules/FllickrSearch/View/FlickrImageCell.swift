@@ -10,7 +10,7 @@ import UIKit
 
 final class FlickrImageCell: UICollectionViewCell {
     
-    lazy var imageView: UIImageView = {
+    lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,29 +30,16 @@ final class FlickrImageCell: UICollectionViewCell {
 
     private func setupViews() {
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        contentView.backgroundColor = .black
-        contentView.addSubview(imageView)
-        imageView.edges(to: contentView)
+        contentView.addSubview(photoImageView)
+        photoImageView.edges(to: contentView)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = UIImage(color: .black)
+        photoImageView.image = UIImage(color: .black)
     }
     
     func configure(imageURL: URL, size: CGSize, indexPath: IndexPath) {
-        ImageDownloader.shared.downloadImage(withURL: imageURL, size: size, indexPath: indexPath, completion: { (image, resultIndexPath) in
-            if indexPath.row == resultIndexPath.row {
-                DispatchQueue.main.async {
-                    if let downloadedImage = image {
-                        UIView.animate(withDuration: 0.5, delay: 0, options: .transitionCrossDissolve, animations: {
-                            self.imageView.image = downloadedImage
-                        })
-                    } else {
-                        self.imageView.image = UIImage(color: .black)
-                    }
-                }
-            }
-        })
+        photoImageView.loadImage(fromURL: imageURL, size: size, indexPath: indexPath)
     }
 }
