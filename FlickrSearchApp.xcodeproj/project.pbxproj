@@ -44,8 +44,9 @@
 		566D7E0B217CBB87006CB4D5 /* FlickrSearchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E0A217CBB87006CB4D5 /* FlickrSearchPresenterTests.swift */; };
 		566D7E0D217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E0C217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift */; };
 		566D7E0F217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E0E217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift */; };
-		566D7E11217CBC01006CB4D5 /* MockNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E10217CBC01006CB4D5 /* MockNetworkClient.swift */; };
+		566D7E11217CBC01006CB4D5 /* NetworkClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E10217CBC01006CB4D5 /* NetworkClientMock.swift */; };
 		566D7E13217CC740006CB4D5 /* FlickrPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E12217CC740006CB4D5 /* FlickrPhotoTests.swift */; };
+		566D7E15217CCB44006CB4D5 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E14217CCB44006CB4D5 /* TestUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +110,9 @@
 		566D7E0A217CBB87006CB4D5 /* FlickrSearchPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchPresenterTests.swift; sourceTree = "<group>"; };
 		566D7E0C217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchViewModelTests.swift; sourceTree = "<group>"; };
 		566D7E0E217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchBuilderTests.swift; sourceTree = "<group>"; };
-		566D7E10217CBC01006CB4D5 /* MockNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkClient.swift; sourceTree = "<group>"; };
+		566D7E10217CBC01006CB4D5 /* NetworkClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientMock.swift; sourceTree = "<group>"; };
 		566D7E12217CC740006CB4D5 /* FlickrPhotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoTests.swift; sourceTree = "<group>"; };
+		566D7E14217CCB44006CB4D5 /* TestUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +273,7 @@
 				564963AE217CA98000B50D2F /* FlickrSearchAppTests.swift */,
 				564963AF217CA98000B50D2F /* Info.plist */,
 				566D7E00217CAA59006CB4D5 /* TestData.json */,
+				566D7E14217CCB44006CB4D5 /* TestUtil.swift */,
 			);
 			path = FlickrSearchAppTests;
 			sourceTree = "<group>";
@@ -361,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				566D7E06217CAC7C006CB4D5 /* NetworkingTests.swift */,
-				566D7E10217CBC01006CB4D5 /* MockNetworkClient.swift */,
+				566D7E10217CBC01006CB4D5 /* NetworkClientMock.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -540,10 +543,11 @@
 				566D7E13217CC740006CB4D5 /* FlickrPhotoTests.swift in Sources */,
 				566D7E0D217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift in Sources */,
 				566D7E0F217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift in Sources */,
+				566D7E15217CCB44006CB4D5 /* TestUtil.swift in Sources */,
 				564963B0217CA98000B50D2F /* FlickrSearchAppTests.swift in Sources */,
 				566D7E09217CBB71006CB4D5 /* FlickrSearchInteractorTests.swift in Sources */,
 				566D7E0B217CBB87006CB4D5 /* FlickrSearchPresenterTests.swift in Sources */,
-				566D7E11217CBC01006CB4D5 /* MockNetworkClient.swift in Sources */,
+				566D7E11217CBC01006CB4D5 /* NetworkClientMock.swift in Sources */,
 				566D7E07217CAC7C006CB4D5 /* NetworkingTests.swift in Sources */,
 				566D7E04217CAB29006CB4D5 /* FlickrPhotosTests.swift in Sources */,
 			);

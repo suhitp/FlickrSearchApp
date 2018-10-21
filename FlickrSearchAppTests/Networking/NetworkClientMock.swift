@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 @testable import FlickrSearchApp
 
-class MockNetworkClient: NetworkService {
+class NetworkClientMock: NetworkService {
     
     func dataRequest<T>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask where T : Decodable {
         if case FlickrSearchAPI.search(query: "nature", page: 1) = endPoint {
@@ -19,7 +19,7 @@ class MockNetworkClient: NetworkService {
             let data = try! Data(contentsOf: fileUrl)
             let json = try! JSONDecoder().decode(objectType, from: data)
             completion(Result.success(json))
-        } else if case FlickrSearchAPI.search(query: "abc", page: -1) = endPoint {
+        } else if case FlickrSearchAPI.search(query: "nature", page: -1) = endPoint {
             completion(Result.failure(.invalidStatusCode(401)))
         } else if case FlickrSearchAPI.search(query: "dfdfdf", page: 1) = endPoint {
             completion(Result.failure(.emptyData))

@@ -7,27 +7,74 @@
 //
 
 import XCTest
+@testable import FlickrSearchApp
 
 class FlickrSearchInteractorTests: XCTestCase {
 
+    var interactor: FlickrSearchInteractorMock!
+    var presenter: FlickrSearchPresenterInputMock!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        presenter = FlickrSearchPresenterInputMock()
+        let network = NetworkClientMock()
+        interactor = FlickrSearchInteractorMock(presenter: presenter, network: network)
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        interactor = nil
+        presenter = nil
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testLoadFlickrPhotos() {
+        interactor.loadFlickrPhotos(matching: "nature", pageNum: 1)
+        XCTAssertTrue(presenter.flickrSuccessCalled)
+        XCTAssertTrue(interactor.loadPhotosCalled)
     }
+    
+    func testLoadFlickrPhotosErrorResponse() {
+        interactor.loadFlickrPhotos(matching: "nature", pageNum: -1)
+        XCTAssertFalse(presenter.flickrSuccessCalled)
+        XCTAssertTrue(interactor.loadPhotosCalled)
+    }
+}
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+
+class FlickrSearchInteractorMock: FlickrSearchInteractorInput {
+    
+    weak var presenter: FlickrSearchPresenterInput?
+    var loadPhotosCalled: Bool = false
+    var network: NetworkService?
+    
+    init(presenter: FlickrSearchPresenterInput, network: NetworkService) {
+        self.presenter = presenter
+        self.network = network
+    }
+    
+    func loadFlickrPhotos(matching imageName: String, pageNum: Int) {
+        network?.dataRequest(FlickrSearchAPI.search(query: imageName, page: pageNum), objectType: FlickrPhotos.self) { (result) in
+            switch result {
+            case let .success(flickrPhotos):
+                self.loadPhotosCalled = true
+                self.presenter?.flickrSearchSuccess(flickrPhotos)
+            case let .failure(error):
+                self.presenter?.flickrSearchError(error)
+                self.loadPhotosCalled = true
+            }
         }
     }
+}
 
+class FlickrSearchPresenterInputMock: FlickrSearchPresenterInput {
+    
+    var flickrSuccessCalled = false
+    
+    func flickrSearchSuccess(_ flickrPhotos: FlickrPhotos) {
+        flickrSuccessCalled = true
+        XCTAssertFalse(flickrPhotos.photo.isEmpty)
+    }
+    
+    func flickrSearchError(_ error: NetworkError) {
+        flickrSuccessCalled = false
+    }
 }

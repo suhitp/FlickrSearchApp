@@ -18,6 +18,7 @@ class FlickrSearchBuilderTests: XCTestCase {
     var interactor: FlickrSearchIneractor?
     
     override func setUp() {
+        super.setUp()
         let moduleBuilder = FlickrSearchModuleBuilder()
         viewController = moduleBuilder.buildModule()
         presenter = viewController?.presenter as? FlickrSearchPresenter
