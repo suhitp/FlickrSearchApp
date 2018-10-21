@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import FlickrSearchApp
 
 class FlickrSearchViewModelTests: XCTestCase {
 
@@ -18,16 +19,31 @@ class FlickrSearchViewModelTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testViewModelUrlEmptyList() {
+        let viewModel = FlickrSearchViewModel(photoUrlList: [])
+        XCTAssertTrue(viewModel.isEmpty)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testViewModelUrlListNotEmpty() {
+        var urls: [URL] = []
+        for _ in 0...3 {
+            let url = URL(string: "https://flickr.static.com/image2/12344_m.jpg")!
+            urls.append(url)
         }
+        let viewModel = FlickrSearchViewModel(photoUrlList: urls)
+        XCTAssertFalse(viewModel.photoUrlList.isEmpty)
+        XCTAssertTrue(viewModel.photoCount == 4)
     }
-
+    
+    func testAddMorePhoto() {
+        var urls: [URL] = []
+        for _ in 0...3 {
+            let url = URL(string: "https://flickr.static.com/image2/12344_m.jpg")!
+            urls.append(url)
+        }
+        var viewModel = FlickrSearchViewModel(photoUrlList: urls)
+        viewModel.addMorePhotosUrls(urls)
+        XCTAssertFalse(viewModel.isEmpty)
+        XCTAssertTrue(viewModel.photoCount == 8)
+    }
 }
