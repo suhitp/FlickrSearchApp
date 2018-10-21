@@ -45,6 +45,7 @@
 		566D7E0D217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E0C217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift */; };
 		566D7E0F217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E0E217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift */; };
 		566D7E11217CBC01006CB4D5 /* MockNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E10217CBC01006CB4D5 /* MockNetworkClient.swift */; };
+		566D7E13217CC740006CB4D5 /* FlickrPhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E12217CC740006CB4D5 /* FlickrPhotoTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		566D7E0C217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchViewModelTests.swift; sourceTree = "<group>"; };
 		566D7E0E217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchBuilderTests.swift; sourceTree = "<group>"; };
 		566D7E10217CBC01006CB4D5 /* MockNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkClient.swift; sourceTree = "<group>"; };
+		566D7E12217CC740006CB4D5 /* FlickrPhotoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				566D7E03217CAB29006CB4D5 /* FlickrPhotosTests.swift */,
+				566D7E12217CC740006CB4D5 /* FlickrPhotoTests.swift */,
 				566D7E08217CBB71006CB4D5 /* FlickrSearchInteractorTests.swift */,
 				566D7E0A217CBB87006CB4D5 /* FlickrSearchPresenterTests.swift */,
 				566D7E0C217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift */,
@@ -534,6 +537,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				566D7E13217CC740006CB4D5 /* FlickrPhotoTests.swift in Sources */,
 				566D7E0D217CBB9D006CB4D5 /* FlickrSearchViewModelTests.swift in Sources */,
 				566D7E0F217CBBB4006CB4D5 /* FlickrSearchBuilderTests.swift in Sources */,
 				564963B0217CA98000B50D2F /* FlickrSearchAppTests.swift in Sources */,
