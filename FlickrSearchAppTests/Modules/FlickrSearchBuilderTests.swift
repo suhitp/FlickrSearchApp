@@ -7,21 +7,52 @@
 //
 
 import XCTest
+import UIKit
+import Foundation
 @testable import FlickrSearchApp
 
 class FlickrSearchBuilderTests: XCTestCase {
 
+    var viewController: FlickrSearchViewController?
+    var presenter: FlickrSearchPresenter?
+    var interactor: FlickrSearchIneractor?
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let moduleBuilder = FlickrSearchModuleBuilder()
+        viewController = moduleBuilder.buildModule()
+        presenter = viewController?.presenter as? FlickrSearchPresenter
+        interactor = presenter?.interactor as? FlickrSearchIneractor
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        viewController = nil
+        presenter = nil
+        interactor = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testFlickrModuleBuilder() {
+        XCTAssertTrue(viewController != nil)
+        XCTAssertTrue(presenter != nil)
+        XCTAssertTrue(interactor != nil)
+    }
+    
+    func testFlickrModuleViewController() {
+        XCTAssertNotNil(viewController)
+        XCTAssertNotNil(viewController?.presenter)
+        XCTAssertTrue(viewController?.presenter is FlickrSearchPresenter)
     }
 
+    func testFlickrSearchModulePresenter() {
+        XCTAssertNotNil(presenter)
+        XCTAssertNotNil(presenter?.view)
+        XCTAssertNotNil(presenter?.interactor)
+        XCTAssertTrue(presenter?.view is FlickrSearchViewController)
+        XCTAssertTrue(presenter?.interactor is FlickrSearchIneractor)
+    }
+    
+    func testFlickrSearchModuleInteractor() {
+        XCTAssertNotNil(interactor)
+        XCTAssertNotNil(interactor?.presenter)
+        XCTAssertTrue(interactor?.presenter is FlickrSearchPresenter)
+    }
 }
