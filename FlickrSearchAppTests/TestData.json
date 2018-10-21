@@ -1,0 +1,34 @@
+{
+    "stat" : "ok",
+    "photos" : {
+        "perpage" : 20,
+        "pages" : 1,
+        "photo" : [
+            {
+                "owner" : "81035653@N00",
+                "secret" : "ce24806466",
+                "server" : "1907",
+                "id" : "12345",
+                "farm" : 2,
+                "title" : "test image title",
+                "isfriend" : 0,
+                "isfamily" : 0,
+                "ispublic" : 1
+            },
+            {
+                "owner" : "30163882@N00",
+                "secret" : "24c88e68b3",
+                "server" : "1910",
+                "id" : "11111",
+                "farm" : 2,
+                "title" : "second test image title",
+                "isfriend" : 0,
+                "isfamily" : 0,
+                "ispublic" : 1
+            }
+        ],
+        "total" : "2",
+        "page" : 1
+    }
+}
+

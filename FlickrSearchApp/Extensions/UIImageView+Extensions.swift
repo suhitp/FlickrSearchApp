@@ -22,7 +22,7 @@ extension UIImageView {
             if let self = self, indexPath.row == resultIndexPath.row, imageURL == url {
                 DispatchQueue.main.async {
                     if let downloadedImage = image {
-                        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                        UIView.transition(with: self, duration: 0.5, options: .transitionCrossDissolve, animations: {
                             self.image = downloadedImage
                         }, completion: nil)
                     } else {

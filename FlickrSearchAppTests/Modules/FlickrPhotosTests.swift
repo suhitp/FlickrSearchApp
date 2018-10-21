@@ -1,5 +1,5 @@
 //
-//  FlickrSearchAppTests.swift
+//  FlickrPhotosTests.swift
 //  FlickrSearchAppTests
 //
 //  Created by Suhit Patil on 21/10/18.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import FlickrSearchApp
 
-class FlickrSearchAppTests: XCTestCase {
+class FlickrPhotosTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,9 +19,17 @@ class FlickrSearchAppTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    //MARK: Test sample response mapping to FlickrPhotos
+    func testFlickrPhotosJSONDecoder() {
+        let bundle = Bundle(for: type(of: self))
+        let fileUrl = bundle.url(forResource: "TestData", withExtension: "json")!
+        let data = try! Data(contentsOf: fileUrl)
+        let flickrPhotos = try! JSONDecoder().decode(FlickrPhotos.self, from: data)
+        XCTAssertFalse(flickrPhotos.photo.isEmpty)
+        XCTAssertTrue(flickrPhotos.photo.count == 2)
+        XCTAssertTrue(flickrPhotos.page == 1)
+        XCTAssertTrue(flickrPhotos.total == "2")
+        XCTAssertTrue(flickrPhotos.perpage == 20)
     }
 
     func testPerformanceExample() {

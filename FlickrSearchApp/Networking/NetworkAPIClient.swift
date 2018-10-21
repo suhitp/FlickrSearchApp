@@ -24,7 +24,7 @@ protocol NetworkService {
 
 final class NetworkAPIClient: NetworkService {
 
-    let session: URLSession
+    private let session: URLSession
 
     static var defaultSession: URLSession = {
         let configuration = URLSessionConfiguration.default
