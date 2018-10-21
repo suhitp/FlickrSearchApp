@@ -166,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				564E180A2165E2F5000DD4F4 /* ImageDownloader */,
-				564BD76C216353E5004DCFF1 /* Protocols */,
 				56290FDA215E68F600FB34C6 /* Application */,
 				56290FDC215E690600FB34C6 /* Modules */,
 				56290FDB215E68FD00FB34C6 /* Networking */,
@@ -321,13 +320,6 @@
 				564BD78021646E66004DCFF1 /* FlickrPhoto.swift */,
 			);
 			path = Entity;
-			sourceTree = "<group>";
-		};
-		564BD76C216353E5004DCFF1 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		564BD76F2163A4C1004DCFF1 /* Protocols */ = {
