@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FlickrPhotoDetailRouter: FlickrPhotoDetailRouterInput {
+final class FlickrPhotoDetailRouter: FlickrPhotoDetailRouterInput {
     
     weak var viewController: UIViewController?
     

@@ -12,7 +12,7 @@ protocol FlickrDetailModuleBuilder {
     func buildModule(with imageUrl: URL) -> FlickrPhotoDetailViewController
 }
 
-class FlickrPhotoDetailModuleBuilder: FlickrDetailModuleBuilder {
+final class FlickrPhotoDetailModuleBuilder: FlickrDetailModuleBuilder {
     
     func buildModule(with imageUrl: URL) -> FlickrPhotoDetailViewController {
         

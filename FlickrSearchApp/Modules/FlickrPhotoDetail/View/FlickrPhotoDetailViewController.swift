@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FlickrPhotoDetailViewController: UIViewController, FlickrPhotoDetailViewInput {
+final class FlickrPhotoDetailViewController: UIViewController, FlickrPhotoDetailViewInput {
 
     var presenter: FlickrPhotoDetailViewOutput!
     

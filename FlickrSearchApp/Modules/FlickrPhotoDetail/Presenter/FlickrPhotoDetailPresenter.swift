@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FlickrPhotoDetailPresenter: FlickrPhotoDetailModuleInput, FlickrPhotoDetailViewOutput {
+final class FlickrPhotoDetailPresenter: FlickrPhotoDetailModuleInput, FlickrPhotoDetailViewOutput {
     
     var view: FlickrPhotoDetailViewInput?
     var router: FlickrPhotoDetailRouterInput!

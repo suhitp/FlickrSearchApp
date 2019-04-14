@@ -12,7 +12,7 @@ protocol FlickrSearchEventDelegate: AnyObject {
     func didTapSearchBar(withText searchText: String)
 }
 
-class SearchViewController: UIViewController, UISearchBarDelegate {
+final class SearchViewController: UIViewController, UISearchBarDelegate {
 
     weak var searchDelegate: FlickrSearchEventDelegate?
     

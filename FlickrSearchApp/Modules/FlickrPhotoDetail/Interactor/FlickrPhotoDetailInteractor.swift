@@ -8,6 +8,6 @@
 
 import UIKit
 
-class FlickrPhotoDetailInteractor: FlickrPhotoDetailInteractorInput {
+final class FlickrPhotoDetailInteractor: FlickrPhotoDetailInteractorInput {
 
 }

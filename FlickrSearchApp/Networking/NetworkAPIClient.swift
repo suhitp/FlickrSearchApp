@@ -99,6 +99,7 @@ final class NetworkAPIClient: NetworkService {
         return downloadTask
     }
     
+    //MARK: Downsample Image to given Size
     func downsampleImage(from url: URL, pointSize: CGSize, scale: CGFloat) -> UIImage? {
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
         guard let imageSource = CGImageSourceCreateWithURL(url as CFURL, imageSourceOptions) else {
