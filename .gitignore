@@ -32,6 +32,14 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Additions
+.idea/
+.DS_Store
+
 # Swift Package Manager
 #
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
