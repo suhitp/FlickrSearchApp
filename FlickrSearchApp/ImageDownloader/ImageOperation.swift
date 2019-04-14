@@ -10,15 +10,15 @@ import UIKit
 
 final class ImageOperation: Operation {
     
-    var imageDownloadCompletionHandler: ((Result<UIImage>) -> Void)?
+    var imageDownloadCompletionHandler: ((Result<UIImage, NetworkError>) -> Void)?
     
     public let imageURL: URL
     private let network: NetworkService
     private var downloadTask: URLSessionDownloadTask?
     private let size: CGSize
     private let scale: CGFloat
-    
-    init(imageURL: URL, size: CGSize, scale: CGFloat, network: NetworkService = NetworkAPIClient()) {
+
+    init(imageURL: URL, size: CGSize, scale: CGFloat, network: NetworkService) {
         self.imageURL = imageURL
         self.size = size
         self.scale = scale
@@ -73,11 +73,11 @@ final class ImageOperation: Operation {
             finish()
             return
         }
-        
+
         if !isExecuting {
             state = .executing
         }
-        
+
         main()
     }
     
@@ -99,11 +99,14 @@ final class ImageOperation: Operation {
     
     //MARK: - Main
     override func main() {
-        downloadTask = network.downloadRequest(imageURL, size: size, scale: scale, completion: { [weak self] (result: Result<UIImage>) in
+        downloadImage()
+    }
+    
+    private func downloadImage() {
+        downloadTask = network.downloadRequest(imageURL, size: size, scale: UIScreen.main.scale, completion: { [weak self] (result: Result<UIImage, NetworkError>) in
             self?.imageDownloadCompletionHandler?(result)
             self?.finish()
         })
-        downloadTask?.resume()
     }
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FlickrImageCell: UICollectionViewCell {
+final class FlickrImageCell: UICollectionViewCell, Reusable {
     
     lazy var photoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -29,9 +29,8 @@ final class FlickrImageCell: UICollectionViewCell {
     
 
     private func setupViews() {
-        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        contentView.addSubview(photoImageView)
-        photoImageView.edges(to: contentView)
+        addSubview(photoImageView)
+        photoImageView.edges(to: self)
     }
     
     override func prepareForReuse() {
@@ -40,6 +39,6 @@ final class FlickrImageCell: UICollectionViewCell {
     }
     
     func configure(imageURL: URL, size: CGSize, indexPath: IndexPath) {
-        photoImageView.loadImage(fromURL: imageURL, size: size, indexPath: indexPath)
+        photoImageView.loadImage(with: imageURL, size: size, indexPath: indexPath)
     }
 }

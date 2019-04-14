@@ -8,7 +8,7 @@
 
 import UIKit
 
-final public class AppCoordinator {
+final public class AppConfigurator {
     
     @discardableResult
     func configureRootViewController(inWindow window: UIWindow?) -> Bool {

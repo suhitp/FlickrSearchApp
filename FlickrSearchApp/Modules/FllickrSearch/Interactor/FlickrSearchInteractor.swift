@@ -9,9 +9,9 @@
 import Foundation
 
 final class FlickrSearchIneractor: FlickrSearchInteractorInput {
-  
+    
     let network: NetworkService
-    weak var presenter: FlickrSearchPresenterInput?
+    weak var presenter: FlickrSearchInteractorOutput?
     
     init(network: NetworkService) {
         self.network = network
@@ -20,7 +20,7 @@ final class FlickrSearchIneractor: FlickrSearchInteractorInput {
     //MARK: Load Flickr images for searched text from the network
     func loadFlickrPhotos(matching imageName: String, pageNum: Int) {
         let endPoint = FlickrSearchAPI.search(query: imageName, page: pageNum)
-        network.dataRequest(endPoint, objectType: FlickrPhotos.self) { [weak self] (result: Result<FlickrPhotos>) in
+        network.dataRequest(endPoint, objectType: FlickrPhotos.self) { [weak self] (result: Result<FlickrPhotos, NetworkError>) in
             guard let self = self else { return }
             switch result {
             case let .success(response):

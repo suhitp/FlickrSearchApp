@@ -12,9 +12,13 @@ import Foundation
 enum FlickrSearchAPI: APIEndPoint, URLRequestConvertible {
     
     case search(query: String, page: Int)
+
+}
+
+extension FlickrSearchAPI {
     
     var baseURL: URL {
-        return URL(string: Strings.flickrAPIBaseURL)!
+        return URL(string: APIConstants.flickrAPIBaseURL)!
     }
     
     var method: HTTPMethod {
@@ -30,14 +34,15 @@ enum FlickrSearchAPI: APIEndPoint, URLRequestConvertible {
         case let .search(query, page):
             return [
                 "method": "flickr.photos.search",
-                "api_key": Strings.flickrAPIKey,
+                "api_key": APIConstants.flickrAPIKey,
                 "format": "json",
                 "nojsoncallback": 1,
                 "safe_search": 1,
                 "text": query,
                 "page": page,
-                "per_page": 20
+                "per_page": Constants.defaultPageSize
             ]
         }
     }
+    
 }

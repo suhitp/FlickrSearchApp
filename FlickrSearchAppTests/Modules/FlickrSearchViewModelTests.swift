@@ -27,7 +27,7 @@ class FlickrSearchViewModelTests: XCTestCase {
     func testViewModelUrlListNotEmpty() {
         var urls: [URL] = []
         for _ in 0...3 {
-            let url = URL(string: "https://flickr.static.com/image2/12344_m.jpg")!
+            let url = URL(string: "https://staticflickr.com/image2/12344_m.jpg")!
             urls.append(url)
         }
         let viewModel = FlickrSearchViewModel(photoUrlList: urls)
@@ -38,11 +38,11 @@ class FlickrSearchViewModelTests: XCTestCase {
     func testAddMorePhoto() {
         var urls: [URL] = []
         for _ in 0...3 {
-            let url = URL(string: "https://flickr.static.com/image2/12344_m.jpg")!
+            let url = URL(string: "https://staticflickr.com/image2/12344_m.jpg")!
             urls.append(url)
         }
         var viewModel = FlickrSearchViewModel(photoUrlList: urls)
-        viewModel.addMorePhotosUrls(urls)
+        viewModel.addMorePhotoUrls(urls)
         XCTAssertFalse(viewModel.isEmpty)
         XCTAssertTrue(viewModel.photoCount == 8)
     }

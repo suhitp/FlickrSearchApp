@@ -16,13 +16,15 @@ public enum ViewState: Equatable {
     case content
 }
 
+
+//MARK: FlickrSearchViewController
 final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput, FlickrSearchEventDelegate {
     
-    var presenter: FlickrSearchPresentation!
+    var presenter: FlickrSearchViewOutput!
     var viewState: ViewState = .none
-    var searchText = "nature"
     var flickrSearchViewModel: FlickrSearchViewModel?
-
+    var searchText = ""
+    
     lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         let spacing = Constants.defaultSpacing
@@ -42,7 +44,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-
+    
     lazy var searchController: UISearchController = {
         let searchVC = SearchViewController()
         searchVC.searchDelegate = self
@@ -57,23 +59,24 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         controller.searchBar.delegate = searchVC
         return controller
     }()
-
+    
+    //MARK: ViewController Lifecycle
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
-        navigationItem.title = Strings.searchPageTitle
+        navigationItem.title = Strings.flickrSearchTitle
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-
+    
     private func setupViews() {
         configureCollectionView()
         configureSearchController()
     }
-
+    
     //MARK: configureSearchController
     private func configureSearchController() {
         if #available(iOS 11, *) {
@@ -85,65 +88,46 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         }
         definesPresentationContext = true
     }
-
+    
     //MARK: ConfigureCollectionView
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.edgesToSuperView()
-        collectionView.register(FlickrImageCell.self, forCellWithReuseIdentifier: Strings.reuseIdentifier)
-        collectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.reuseIdentifer)
+        collectionView.register(FlickrImageCell.self)
+        collectionView.register(FooterView.self, ofKind: UICollectionView.elementKindSectionFooter)
     }
     
+    // FlickrSearchViewInput
     func changeViewState(_ state: ViewState) {
-        DispatchQueue.main.async { [unowned self] in
-            self.viewState = state
-            switch state {
-            case .loading:
-                if self.flickrSearchViewModel == nil {
-                    self.view.showSpinner()
-                }
-            case .content:
-                self.view.hideSpinner()
-            case .error(let message):
-                self.view.hideSpinner()
-                self.showAlert(
-                    title: Strings.error,
-                    message: message,
-                    retryAction: { [unowned self] in
-                        self.presenter.searchFlickrPhotos(matching: self.searchText)
-                    }
-                )
-            default:
-                break
+        viewState = state
+        switch state {
+        case .loading:
+            if flickrSearchViewModel == nil {
+                showSpinner()
             }
+        case .content:
+            hideSpinner()
+        case .error(let message):
+            hideSpinner()
+            showAlert(title: Strings.error, message: message, retryAction: { [unowned self] in
+                self.presenter.searchFlickrPhotos(matching: self.searchText)
+            })
+        default:
+            break
         }
     }
     
+    //MARK: FlickrSearchViewInput
     func displayFlickrSearchImages(with viewModel: FlickrSearchViewModel) {
-        DispatchQueue.main.async {
-            self.flickrSearchViewModel = viewModel
-            self.collectionView.reloadData()
-        }
+        flickrSearchViewModel = viewModel
+        collectionView.reloadData()
     }
     
     func insertFlickrSearchImages(with viewModel: FlickrSearchViewModel, at indexPaths: [IndexPath]) {
-        DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates({
-                self.flickrSearchViewModel = viewModel
-                self.collectionView.insertItems(at: indexPaths)
-            }, completion: nil)
-        }
-    }
-    
-    func didTapSearchBar(withText searchText: String) {
-        searchController.isActive = false
-        guard !searchText.isEmpty || searchText != self.searchText else { return }
-        presenter.clearData()
-        
-        self.searchText = searchText
-        searchController.searchBar.text = searchText
-        ImageDownloader.shared.cancelAll()
-        presenter.searchFlickrPhotos(matching: searchText)
+        collectionView.performBatchUpdates({
+            self.flickrSearchViewModel = viewModel
+            self.collectionView.insertItems(at: indexPaths)
+        })
     }
     
     func resetViews() {
@@ -151,23 +135,38 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         flickrSearchViewModel = nil
         collectionView.reloadData()
     }
+    
+    //MARK: FlickrSearchEventDelegate
+    func didTapSearchBar(withText searchText: String) {
+        searchController.isActive = false
+        guard !searchText.isEmpty || searchText != self.searchText else { return }
+        presenter.clearData()
+        
+        self.searchText = searchText
+        searchController.searchBar.text = searchText
+        //ImageDownloader.shared.cancelAll()
+        presenter.searchFlickrPhotos(matching: searchText)
+    }
+    
 }
 
 
 //MARK: UICollectionViewDataSource & UICollectionViewDelegate
 extension FlickrSearchViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let viewModel = self.flickrSearchViewModel, !viewModel.isEmpty else {
             return 0
         }
         return viewModel.photoCount
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Strings.reuseIdentifier, for: indexPath) as! FlickrImageCell
-        guard let viewModel = flickrSearchViewModel else { return cell }
-        let imageURL = viewModel.photoUrlList[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(for: indexPath) as FlickrImageCell
+        guard let viewModel = flickrSearchViewModel else {
+            return cell
+        }
+        let imageURL = viewModel.imageUrlAt(indexPath.row)
         cell.configure(imageURL: imageURL, size: collectionViewLayout.itemSize, indexPath: indexPath)
         return cell
     }
@@ -180,7 +179,16 @@ extension FlickrSearchViewController: UICollectionViewDataSource, UICollectionVi
         presenter.searchFlickrPhotos(matching: searchText)
     }
     
-    //MARK: Footer
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let viewModel = flickrSearchViewModel else { return }
+        guard viewState != .loading, indexPath.row == (viewModel.photoCount - 1) else {
+            return
+        }
+        let imageURL = viewModel.imageUrlAt(indexPath.row)
+        ImageDownloader.shared.changeDownloadPriority(for: imageURL)
+    }
+    
+    //MARK: UICollectionViewFooter
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if viewState == .loading && flickrSearchViewModel != nil {
             return CGSize(width: Constants.screenWidth, height: 50)
@@ -191,11 +199,15 @@ extension FlickrSearchViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String,  at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionFooter:
-            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FooterView.reuseIdentifer, for: indexPath) as! FooterView
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, for: indexPath) as FooterView
             return footerView
         default:
             assert(false, "Unexpected element kind")
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectPhoto(at: indexPath.item)
     }
 }
 

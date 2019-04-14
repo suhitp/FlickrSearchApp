@@ -9,17 +9,12 @@
 import Foundation
 import UIKit
 
-enum Result<T> {
-    case success(T)
-    case failure(NetworkError)
-}
-
 protocol NetworkService {
     @discardableResult
-    func dataRequest<T: Decodable>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask
+    func dataRequest<T: Decodable>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) -> URLSessionDataTask
     
     @discardableResult
-    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage>) -> Void) -> URLSessionDownloadTask
+    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage, NetworkError>) -> Void) -> URLSessionDownloadTask
 }
 
 final class NetworkAPIClient: NetworkService {
@@ -39,8 +34,9 @@ final class NetworkAPIClient: NetworkService {
         self.session = session
     }
 
+    //MARK: DataRequest
     @discardableResult
-    func dataRequest<T: Decodable>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask {
+    func dataRequest<T: Decodable>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) -> URLSessionDataTask {
 
         var request: URLRequest
         do {
@@ -63,7 +59,9 @@ final class NetworkAPIClient: NetworkService {
                 completion(Result.failure(NetworkError.invalidStatusCode(response.statusCode)))
                 return
             }
+            
             self.printJSON(data: data)
+            
             do {
                 let jsonObject = try JSONDecoder().decode(objectType, from: data)
                 completion(Result.success(jsonObject))
@@ -75,15 +73,9 @@ final class NetworkAPIClient: NetworkService {
         return dataTask
     }
 
-    func printJSON(data: Data) {
-        let json = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: Any]
-        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-        let string = String.init(data: jsonData, encoding: .utf8)
-        print(string ?? "")
-    }
-
+    //MARK: DataRequest
     @discardableResult
-    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage>) -> Void) -> URLSessionDownloadTask {
+    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage, NetworkError>) -> Void) -> URLSessionDownloadTask {
         let downloadTask = self.session.downloadTask(with: url) { (location: URL?, response: URLResponse?, error: Error?) in
             if let error = error {
                 completion(.failure(.apiError(error)))
@@ -94,12 +86,16 @@ final class NetworkAPIClient: NetworkService {
                 return
             }
             guard let downloadedImage = self.downsampleImage(from: location, pointSize: size, scale: scale) else {
-                let image = UIImage(contentsOfFile: location.absoluteString)!
-                completion(.success(image))
+                if let data = try? Data(contentsOf: location), let image = UIImage(data: data) {
+                    completion(.success(image))
+                } else {
+                    completion(.failure(.emptyData))
+                }
                 return
             }
             completion(.success(downloadedImage))
         }
+        downloadTask.resume()
         return downloadTask
     }
     
@@ -120,5 +116,15 @@ final class NetworkAPIClient: NetworkService {
             return nil
         }
         return UIImage(cgImage: downSampledImage)
+    }
+}
+
+
+extension NetworkAPIClient {
+    func printJSON(data: Data) {
+        let json = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: Any]
+        let jsonData = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        let string = String.init(data: jsonData, encoding: .utf8)
+        print(string ?? "")
     }
 }

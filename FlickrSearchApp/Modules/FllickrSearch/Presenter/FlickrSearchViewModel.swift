@@ -12,6 +12,11 @@ struct FlickrSearchViewModel {
     
     var photoUrlList: [URL] = []
     
+    init(photoUrlList: [URL]) {
+        self.photoUrlList = photoUrlList
+    }
+    
+    
     var isEmpty: Bool {
         return photoUrlList.isEmpty
     }
@@ -19,13 +24,19 @@ struct FlickrSearchViewModel {
     var photoCount: Int {
         return photoUrlList.count
     }
-
-    init(photoUrlList: [URL]) {
-        self.photoUrlList = photoUrlList
-    }
     
-    mutating func addMorePhotosUrls(_ photoUrls: [URL]) {
+    mutating func addMorePhotoUrls(_ photoUrls: [URL]) {
         self.photoUrlList += photoUrls
     }
 }
 
+extension FlickrSearchViewModel {
+    
+    func imageUrlAt(_ index: Int) -> URL {
+        guard !photoUrlList.isEmpty else {
+            fatalError("No imageUrls available")
+        }
+        return photoUrlList[index]
+    }
+    
+}
