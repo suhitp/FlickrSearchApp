@@ -8,9 +8,7 @@
 
 import UIKit
 
-final class FooterView: UICollectionReusableView {
-    
-    static let reuseIdentifer = "FooterView"
+final class FooterView: UICollectionReusableView, Reusable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -10,7 +10,7 @@ import XCTest
 @testable import FlickrSearchApp
 
 class FlickrSearchInteractorTests: XCTestCase {
-
+    
     var interactor: FlickrSearchInteractorMock!
     var presenter: FlickrSearchPresenterInputMock!
     
@@ -19,7 +19,7 @@ class FlickrSearchInteractorTests: XCTestCase {
         let network = NetworkClientMock()
         interactor = FlickrSearchInteractorMock(presenter: presenter, network: network)
     }
-
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         interactor = nil
@@ -42,11 +42,11 @@ class FlickrSearchInteractorTests: XCTestCase {
 
 class FlickrSearchInteractorMock: FlickrSearchInteractorInput {
     
-    weak var presenter: FlickrSearchPresenterInput?
+    weak var presenter: FlickrSearchInteractorOutput?
     var loadPhotosCalled: Bool = false
     var network: NetworkService?
     
-    init(presenter: FlickrSearchPresenterInput, network: NetworkService) {
+    init(presenter: FlickrSearchInteractorOutput, network: NetworkService) {
         self.presenter = presenter
         self.network = network
     }
@@ -65,7 +65,7 @@ class FlickrSearchInteractorMock: FlickrSearchInteractorInput {
     }
 }
 
-class FlickrSearchPresenterInputMock: FlickrSearchPresenterInput {
+class FlickrSearchPresenterInputMock: FlickrSearchInteractorOutput {
     
     var flickrSuccessCalled = false
     
