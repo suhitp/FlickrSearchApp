@@ -9,7 +9,7 @@
 import XCTest
 @testable import FlickrSearchApp
 
-class FlickrSearchPresenterTests: XCTestCase {
+final class FlickrSearchPresenterTests: XCTestCase {
     
     var interactor: FlickrSearchInteractorMock!
     var presenter: FlickrSearchPresenterMock!

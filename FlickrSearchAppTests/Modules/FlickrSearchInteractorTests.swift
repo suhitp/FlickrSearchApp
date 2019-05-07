@@ -9,7 +9,7 @@
 import XCTest
 @testable import FlickrSearchApp
 
-class FlickrSearchInteractorTests: XCTestCase {
+final class FlickrSearchInteractorTests: XCTestCase {
     
     var interactor: FlickrSearchInteractorMock!
     var presenter: FlickrSearchPresenterInputMock!
@@ -40,7 +40,7 @@ class FlickrSearchInteractorTests: XCTestCase {
 }
 
 
-class FlickrSearchInteractorMock: FlickrSearchInteractorInput {
+final class FlickrSearchInteractorMock: FlickrSearchInteractorInput {
     
     weak var presenter: FlickrSearchInteractorOutput?
     var loadPhotosCalled: Bool = false
@@ -65,7 +65,7 @@ class FlickrSearchInteractorMock: FlickrSearchInteractorInput {
     }
 }
 
-class FlickrSearchPresenterInputMock: FlickrSearchInteractorOutput {
+final class FlickrSearchPresenterInputMock: FlickrSearchInteractorOutput {
     
     var flickrSuccessCalled = false
     

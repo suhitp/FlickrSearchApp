@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 @testable import FlickrSearchApp
 
-class NetworkClientMock: NetworkService {
+final class NetworkClientMock: NetworkService {
     
-    func dataRequest<T>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T>) -> Void) -> URLSessionDataTask where T : Decodable {
+    func dataRequest<T>(_ endPoint: APIEndPoint, objectType: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) -> URLSessionDataTask where T : Decodable {
         if case FlickrSearchAPI.search(query: "nature", page: 1) = endPoint {
             let bundle = Bundle(for: type(of: self))
             let fileUrl = bundle.url(forResource: "TestData", withExtension: "json")!
@@ -27,7 +27,7 @@ class NetworkClientMock: NetworkService {
         return URLSessionDataTask()
     }
     
-    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage>) -> Void) -> URLSessionDownloadTask {
+    func downloadRequest(_ url: URL, size: CGSize, scale: CGFloat, completion: @escaping (Result<UIImage, NetworkError>) -> Void) -> URLSessionDownloadTask {
         if url.absoluteString == "https://farm2.static.flickr.com/100/12345_/12345.jpg" {
             let image = UIImage(color: .black)!
             completion(Result.success(image))

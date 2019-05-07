@@ -11,7 +11,7 @@ import UIKit
 import Foundation
 @testable import FlickrSearchApp
 
-class FlickrSearchBuilderTests: XCTestCase {
+final class FlickrSearchBuilderTests: XCTestCase {
 
     var viewController: FlickrSearchViewController!
     var presenter: FlickrSearchPresenter!

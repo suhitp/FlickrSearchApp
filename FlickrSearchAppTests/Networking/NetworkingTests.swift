@@ -9,7 +9,7 @@
 import XCTest
 @testable import FlickrSearchApp
 
-class NetworkingTests: XCTestCase {
+final class NetworkingTests: XCTestCase {
 
     var network: NetworkService!
     
@@ -71,7 +71,7 @@ class NetworkingTests: XCTestCase {
     
     func testImageDownloadFailure() {
         let imageUrl = URL(string: "https://farm2.static.flickr.com/101/123_/123.jpg")!
-        _ = network.downloadRequest(imageUrl, size: .zero, scale: 1, completion: { (result: Result<UIImage>) in
+        _ = network.downloadRequest(imageUrl, size: .zero, scale: 1, completion: { (result: Result<UIImage, NetworkError>) in
             switch result {
             case let .failure(networkError):
                  XCTAssertTrue(networkError.description == "Something went wrong.")
