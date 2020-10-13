@@ -144,7 +144,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         
         self.searchText = searchText
         searchController.searchBar.text = searchText
-        //ImageDownloader.shared.cancelAll()
+        ImageDownloader.shared.cancelAll()
         presenter.searchFlickrPhotos(matching: searchText)
     }
     
