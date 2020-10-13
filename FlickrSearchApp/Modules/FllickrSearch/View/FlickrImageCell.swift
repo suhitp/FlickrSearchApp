@@ -33,12 +33,7 @@ final class FlickrImageCell: UICollectionViewCell, Reusable {
         photoImageView.edges(to: self)
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        photoImageView.image = UIImage(color: .black)
-    }
-    
     func configure(imageURL: URL, size: CGSize, indexPath: IndexPath) {
-        photoImageView.loadImage(with: imageURL, size: size, indexPath: indexPath)
+        photoImageView.loadImage(with: imageURL, size: size)
     }
 }

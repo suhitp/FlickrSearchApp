@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-typealias ImageDownloadCompletionHander = ((UIImage?, IndexPath?, URL, Error?) -> Void)
+typealias ImageDownloadCompletionHander = ((UIImage?, Bool?, URL, Error?) -> Void)
 
 final class ImageDownloader {
     
@@ -28,10 +28,9 @@ final class ImageDownloader {
    
     private init() {}
     
-    func downloadImage(withURL imageURL: URL, size: CGSize, scale: CGFloat = UIScreen.main.scale, indexPath: IndexPath?, completion: @escaping ImageDownloadCompletionHander) {
-        
+    func downloadImage(withURL imageURL: URL, size: CGSize, scale: CGFloat = UIScreen.main.scale, completion: @escaping ImageDownloadCompletionHander) {
         if let cachedImage = imageCache.object(forKey: imageURL.absoluteString as NSString) {
-            completion(cachedImage, indexPath, imageURL, nil)
+            completion(cachedImage, true, imageURL, nil)
         } else if let existingImageOperations = downloadQueue.operations as? [ImageOperation],
             let imgOperation = existingImageOperations.first(where: {
                 return ($0.imageURL == imageURL) && $0.isExecuting && !$0.isFinished
@@ -44,9 +43,9 @@ final class ImageDownloader {
                 switch result {
                 case let .success(image):
                     self.imageCache.setObject(image, forKey: imageURL.absoluteString as NSString)
-                    completion(image, indexPath, imageURL, nil)
+                    completion(image, false, imageURL, nil)
                 case let .failure(error):
-                    completion(nil, indexPath, imageURL, error)
+                    completion(nil, false, imageURL, error)
                 }
             }
             downloadQueue.addOperation(imageOperation)
@@ -63,7 +62,7 @@ final class ImageDownloader {
         guard let operation = imageOperations.first else {
             return
         }
-        operation.queuePriority = .low
+        operation.queuePriority = .normal
     }
     
     func cancelAll() {

@@ -63,7 +63,7 @@ final class FlickrPhotoDetailViewController: UIViewController, FlickrPhotoDetail
     }
     
     func renderView(with imageUrl: URL) {
-        ImageDownloader.shared.downloadImage(withURL: imageUrl, size: view.bounds.size, indexPath: nil) { [weak self] (image, _, _, error) in
+        ImageDownloader.shared.downloadImage(withURL: imageUrl, size: view.bounds.size) { [weak self] (image, _, _, error) in
             DispatchQueue.main.async {
                 guard let photoImageView = self?.photoImageView, let image = image else {
                     return
