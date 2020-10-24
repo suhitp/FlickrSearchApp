@@ -38,7 +38,6 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,11 +48,7 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         let searchVC = SearchViewController()
         searchVC.searchDelegate = self
         let controller = UISearchController(searchResultsController: searchVC)
-        if #available(iOS 11, *) {
-            controller.obscuresBackgroundDuringPresentation = true
-        } else {
-            controller.dimsBackgroundDuringPresentation = true
-        }
+        controller.obscuresBackgroundDuringPresentation = true
         controller.searchResultsUpdater = nil
         controller.searchBar.placeholder = Strings.placeholder
         controller.searchBar.delegate = searchVC
@@ -70,22 +65,27 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        themeViews()
     }
+    
+    // MARK: Private Functions
     
     private func setupViews() {
         configureCollectionView()
         configureSearchController()
     }
     
-    //MARK: configureSearchController
+    private func themeViews() {
+        view.backgroundColor = .backgroundColor
+        collectionView.backgroundColor = .backgroundColor
+    }
+    
+    // MARK: configureSearchController
+    
     private func configureSearchController() {
-        if #available(iOS 11, *) {
-            navigationItem.searchController = searchController
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationItem.hidesSearchBarWhenScrolling = false
-        } else {
-            navigationItem.titleView = searchController.view
-        }
+        navigationItem.searchController = searchController
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
     }
     
@@ -148,6 +148,12 @@ final class FlickrSearchViewController: UIViewController, FlickrSearchViewInput,
         presenter.searchFlickrPhotos(matching: searchText)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *), traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+           themeViews()
+        }
+    }
 }
 
 

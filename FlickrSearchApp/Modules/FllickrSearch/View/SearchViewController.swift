@@ -18,8 +18,7 @@ final class SearchViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .backgroundColor
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

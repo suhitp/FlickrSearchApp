@@ -21,12 +21,13 @@ final class NetworkAPIClient: NetworkService {
 
     private let session: URLSession
 
-    static var defaultSession: URLSession = {
+    static let defaultSession: URLSession = {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 20
-        if #available(iOS 11.0, *) {
-            configuration.waitsForConnectivity = true
-        }
+        configuration.urlCache = URLCache.shared
+        configuration.requestCachePolicy = .returnCacheDataElseLoad
+        configuration.timeoutIntervalForRequest = 30
+        configuration.timeoutIntervalForResource = 60
+        configuration.waitsForConnectivity = true
         return URLSession(configuration: configuration)
     }()
 
