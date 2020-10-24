@@ -56,6 +56,7 @@ extension UIView {
     
     func showSpinner() {
         let activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.color = UIColor.activityIndicatorColor
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()

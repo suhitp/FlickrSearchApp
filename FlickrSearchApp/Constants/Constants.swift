@@ -25,7 +25,7 @@ enum Strings {
 enum Constants {
     static let screenWidth: CGFloat = UIScreen.main.bounds.width
     static let defaultSpacing: CGFloat = 1
-    static let numberOfColumns: CGFloat = 2
+    static let numberOfColumns: CGFloat = 3
     static let defaultPageNum: Int = 0
     static let defaultTotalCount: Int = 0
     static let defaultPageSize: Int = 20

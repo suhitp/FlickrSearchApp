@@ -34,11 +34,11 @@ extension UIImageView {
     ///   - size: image container size
     func loadImage(
         with imageURL: URL,
-        placeholder: UIImage? = UIImage(color: .black),
+        placeholder: UIImage? = UIImage(color: .placeholder),
         size: CGSize
     ) {
-        downloadImageURL = imageURL
         image = placeholder
+        downloadImageURL = imageURL
         ImageDownloader.shared.downloadImage(
             withURL: imageURL,
             size: size,

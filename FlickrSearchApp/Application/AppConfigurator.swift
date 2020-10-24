@@ -14,6 +14,7 @@ final public class AppConfigurator {
     func configureRootViewController(inWindow window: UIWindow?) -> Bool {
         let flickrSearchViewController = FlickrSearchModuleBuilder().buildModule()
         let navigationController = UINavigationController(rootViewController: flickrSearchViewController)
+        navigationController.themeNavigationBar()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true

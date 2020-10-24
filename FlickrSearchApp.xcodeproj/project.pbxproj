@@ -37,6 +37,8 @@
 		564E18102167818B000DD4F4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E180F2167818B000DD4F4 /* SearchViewController.swift */; };
 		564E1812216796C8000DD4F4 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E1811216796C8000DD4F4 /* UIImage+Extensions.swift */; };
 		564E18142167CA1A000DD4F4 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E18132167CA1A000DD4F4 /* FooterView.swift */; };
+		565CE918254412CD001A95DF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565CE917254412CD001A95DF /* UIColor+Extensions.swift */; };
+		565CE92025443644001A95DF /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565CE91F25443644001A95DF /* UINavigationController+Extensions.swift */; };
 		566D7E01217CAA59006CB4D5 /* TestData.json in Resources */ = {isa = PBXBuildFile; fileRef = 566D7E00217CAA59006CB4D5 /* TestData.json */; };
 		566D7E04217CAB29006CB4D5 /* FlickrPhotosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E03217CAB29006CB4D5 /* FlickrPhotosTests.swift */; };
 		566D7E07217CAC7C006CB4D5 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566D7E06217CAC7C006CB4D5 /* NetworkingTests.swift */; };
@@ -112,6 +114,8 @@
 		564E180F2167818B000DD4F4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		564E1811216796C8000DD4F4 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		564E18132167CA1A000DD4F4 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		565CE917254412CD001A95DF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		565CE91F25443644001A95DF /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		566D7E00217CAA59006CB4D5 /* TestData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestData.json; sourceTree = "<group>"; };
 		566D7E03217CAB29006CB4D5 /* FlickrPhotosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotosTests.swift; sourceTree = "<group>"; };
 		566D7E06217CAC7C006CB4D5 /* NetworkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTests.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 				564E18082165AE0C000DD4F4 /* UIViewController+Extensions.swift */,
 				564E1811216796C8000DD4F4 /* UIImage+Extensions.swift */,
 				5649636B217C533000B50D2F /* UIImageView+Extensions.swift */,
+				565CE917254412CD001A95DF /* UIColor+Extensions.swift */,
+				565CE91F25443644001A95DF /* UINavigationController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -601,10 +607,12 @@
 				56C956B822636604002B063A /* FlickrPhotoDetailInteractor.swift in Sources */,
 				56290FE9215E6B6100FB34C6 /* FlickrSearchProtocols.swift in Sources */,
 				564BD7712163AE08004DCFF1 /* UIView+Extensions.swift in Sources */,
+				565CE92025443644001A95DF /* UINavigationController+Extensions.swift in Sources */,
 				564BD77B2163CB25004DCFF1 /* FlickrSearchAPI.swift in Sources */,
 				564BD76E2163A4A9004DCFF1 /* FlickrImageCell.swift in Sources */,
 				564BD78321646F8A004DCFF1 /* FlickrSearchViewModel.swift in Sources */,
 				56290FE3215E6B2800FB34C6 /* FlickrSearchViewController.swift in Sources */,
+				565CE918254412CD001A95DF /* UIColor+Extensions.swift in Sources */,
 				564BD77F21646E47004DCFF1 /* FlickrPhotos.swift in Sources */,
 				5649636C217C533000B50D2F /* UIImageView+Extensions.swift in Sources */,
 				56C956B522636604002B063A /* FlickrPhotoDetailViewController.swift in Sources */,
