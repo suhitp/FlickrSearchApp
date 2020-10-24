@@ -1,5 +1,5 @@
 # FlickrSearchApp
-Flickr Search Application using Swift 5, VIPER Architecture, OperationQueue for Image Downloading
+Flickr Search Application using Swift 5, VIPER Architecture, URLSession Wrapper and OperationQueue for Image Downloading and URLCache for Image Caching
 
 ## Architecture
 This Application is based on VIPER architecture for clean separation of different layers.
